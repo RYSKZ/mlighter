@@ -21,6 +21,7 @@ from dataset.mlDataStructure import MLDataStructure
 from dataset.mlDataImage import MLDataImage
 from dataset.mlDataAudio import MLDataAudio
 from model.mlModelSkLearn import MLModelSkLearn
+from model.mlModelKeras import MLModelKeras
 from evasions.mlEvasionDiscreetNoise import MLEvasionDiscreetNoise
 from evasions.mlEvasionContinousNoise import MLEvasionContinousNoise
 from evasions.testGen import MLEvasionSearch
@@ -58,15 +59,20 @@ class MLighter:
       self.data.loadData(className=dataClass,dataFile=dataFile,actualData=actualData,targetData=targetData)
 
   def uploadModel(self,modelType, modelName,modelUrl=None,modelFile=None,actualModel=None):
+    
     self.modelName = modelName
+    
     if(modelType == "sklearn"):
       self.model = MLModelSkLearn(self.modelName)
-      if (not modelUrl is None):
-        self.model.loadModel(modelUrl)
-      elif (not modelFile is None):
-        self.model.loadModelIO(modelFile)
-      elif (not actualModel is None):
-        self.model.model=actualModel
+    elif(modelType == "keras"):
+      self.model = MLModelKeras(self.modelName)
+      
+    if (not modelUrl is None):
+      self.model.loadModel(modelUrl)
+    elif (not modelFile is None):
+      self.model.loadModelIO(modelFile)
+    elif (not actualModel is None):
+      self.model.model=actualModel
 
   def prediction(self,sample):
     return self.model.predict(sample)

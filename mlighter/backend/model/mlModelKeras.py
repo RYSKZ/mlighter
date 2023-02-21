@@ -16,14 +16,20 @@
 #  Documentation for this module.
 #
 #  More details.
+from tensorflow.keras.models import load_model
+from .mlModel import MLModel
+from io import BytesIO
+from tempfile import TemporaryFile
 
 
-class MLModel:
-    def __init__(self, name):
-        self.name = name
+class MLModelKeras(MLModel):
+    def loadModel(self, modelURL):
+        self.model = load_model(modelURL)
+        print("loaded", type(self.model))
 
-    def predict(self, sample):
-        return self.model.predict(sample)
-
-    def predict_proba(self, sample):
-        return self.model.predict_proba(sample)
+    def loadModelIO(self, modelFile):
+        fileTemp = TemporaryFile(mode="w+b")
+        fileTemp.write(modelFile)
+        fileTemp.seek(0)
+        self.model = load_model(fileTemp)
+        print("loaded", type(self.model))
