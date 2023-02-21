@@ -12,7 +12,7 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
-#  
+#
 #  Documentation for this module.
 #
 #  More details.
@@ -29,16 +29,17 @@ home += "/backend"
 sys.path.append(home)
 
 from MLighter import MLighter
-parameters = {"name":"iris.csv"}
+
+parameters = {"name": "iris.csv"}
 session = MLighter(parameters)
-session.uploadDataset("structured","example/iris.csv","target")
+session.uploadDataset("structured", "example/iris.csv", "target")
 print(session.data.getColumns())
-session.uploadModel("sklearn","iris",modelUrl="example/iris.joblib")
+session.uploadModel("sklearn", "iris", modelUrl="example/iris.joblib")
 session.data.cleanColumn("Unnamed: 0")
 session.prediction(session.data.data)
 session.chooseStrategy("noise")
 session.chooseTransformation("discreet")
-config={"numberVariants":2,"shift":0,"noise":1,"features":[0,0,1,1]}
+config = {"numberVariants": 2, "shift": 0, "noise": 1, "features": [0, 0, 1, 1]}
 session.setupTransformation(config)
 session.data.transform(session.transformation)
 

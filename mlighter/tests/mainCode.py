@@ -12,7 +12,7 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
-#  
+#
 #  Documentation for this module.
 #
 #  More details.
@@ -29,9 +29,11 @@ home += "/backend"
 sys.path.append(home)
 
 from MLighter import MLighter
-parameters = {"name":"iris.csv"}
+
+parameters = {"name": "iris.csv"}
 session = MLighter(parameters)
-session.uploadCodeReview("python","example/sklearnLogReg.py")
-listdual=session.evaluateCodeReview()
+session.uploadCodeReview("python", "example/sklearnLogReg.py")
+listdual = session.evaluateCodeReview()
 import pandas
+
 print(pandas.DataFrame(listdual))
